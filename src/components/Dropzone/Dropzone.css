@@ -1,0 +1,5 @@
+.dropzone {
+  max-width: 100% !important;
+  padding: 20px !important;
+  height: fit-content !important;
+}
