@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route, } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { Login } from './pages/Login.tsx'
-import { FileVault } from './pages/FileVault.tsx'
+
 import './index.css'
+import { App } from './App.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,12 +17,7 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter >
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route path='/cofre-arquivos' element={<FileVault />} />
-        </Routes>
-      </BrowserRouter>
+      <App />
     </QueryClientProvider>
   </React.StrictMode>,
 )

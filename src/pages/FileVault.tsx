@@ -5,11 +5,14 @@ import { Dropzone } from '../components/Dropzone'
 import { FileList } from '../components/FileList';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
+import { AuthEventData } from '@aws-amplify/ui';
 
-export const FileVault = () => {
+
+// usar o Authenticator para verificar se o usuário está logado
+export const FileVault = ({ signOut }: { signOut: ((data?: AuthEventData | undefined) => void) | undefined }) => {
   return (
     <>
-      <Navbar />
+      <Navbar signOut={signOut} />
       <main>
         <Container maxWidth="lg">
           <Dropzone />

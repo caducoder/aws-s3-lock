@@ -1,2 +1,2 @@
-declare const awsmobile: object;
-export default awsmobile;
+declare const awsExports: object;
+export default awsExports;
