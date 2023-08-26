@@ -29,7 +29,15 @@ export const FileList = () => {
   if (error) return 'An error has occurred.'
 
   const downloadFile = (Key: string): void => {
-    console.log(Key)
+    axios.get(`${BASE_URL}/download/file?nome=${Key}`, { responseType: 'blob' })
+      .then(res => {
+        const url = window.URL.createObjectURL(new Blob([res.data]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute('download', Key)
+        document.body.appendChild(link)
+        link.click()
+      })
   }
 
   return (

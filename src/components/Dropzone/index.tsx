@@ -1,15 +1,22 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography'
-import { useState } from 'react'
 import { FileUploader } from "react-drag-drop-files";
 import './Dropzone.css'
+import axios from 'axios';
+
+const BASE_URL = import.meta.env.VITE_API_URL
 
 export const Dropzone = () => {
-  const [fileOrFiles, setFile] = useState<File[] | null>(null);
+  //const [file, setFile] = useState<File | null>(null);
 
-  const handleChange = ((fileOrFiles: File[]) => {
-    setFile(fileOrFiles);
-    console.log('changes', fileOrFiles);
+  const handleChange = ((file: File) => {
+    const bodyFormData = new FormData();
+    bodyFormData.append('file', file);
+    bodyFormData.append('filename', file.name);
+
+    axios.post(`${BASE_URL}/send`, bodyFormData)
+      .then(res => console.log(res))
+
   })
 
   return (
@@ -19,7 +26,7 @@ export const Dropzone = () => {
         <FileUploader
           handleChange={handleChange}
           name="file"
-          multiple={true}
+          multiple={false}
           classes="dropzone"
         />
       </Box>
