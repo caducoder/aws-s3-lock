@@ -5,7 +5,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import axios from 'axios'
 import { useQuery } from 'react-query'
 
-//const BASE_URL = import.meta.env.VITE_API_URL
+const BASE_URL = process.env.REACT_APP_API_URL
 
 interface IBucketObject {
   ETag: string;
@@ -19,7 +19,7 @@ export const FileList = () => {
   const { isLoading, error, data, isFetching, refetch } = useQuery({
     queryKey: ['get-files'],
     queryFn: () =>
-      axios.get<IBucketObject[]>(`/files`)
+      axios.get<IBucketObject[]>(`${BASE_URL}/files`)
         .then(res => res.data)
   })
 
@@ -28,7 +28,7 @@ export const FileList = () => {
   if (error) return <p>An error has occurred.</p>
 
   const downloadFile = (Key: string): void => {
-    axios.get(`/download/file?nome=${Key}`, { responseType: 'blob' })
+    axios.get(`${BASE_URL}/download/${Key}`, { responseType: 'arraybuffer' })
       .then(res => {
         const url = window.URL.createObjectURL(new Blob([res.data]))
         const link = document.createElement('a')
